@@ -45,3 +45,33 @@ buttons.forEach((btn)=> {
         }
     })
 })
+
+
+// const buttons = document.querySelectorAll('.btn');
+// const calDisplay = document.querySelector('.caldisplay');
+
+// buttons.forEach((btn) => {
+//   btn.addEventListener('click', () => {
+//     const val = btn.textContent;
+
+//     if (val === 'ac') {
+//       calDisplay.textContent = '0';
+//       return;
+//     }
+
+//     if (val === '=') {
+//       try {
+//         calDisplay.textContent = eval(calDisplay.textContent);
+//       } catch {
+//         calDisplay.textContent = 'Error';
+//       }
+//       return;
+//     }
+
+//     if (calDisplay.textContent === '0') {
+//       calDisplay.textContent = val;
+//     } else {
+//       calDisplay.textContent += val;
+//     }
+//   });
+// });
