@@ -4,17 +4,21 @@ let buttons = document.querySelectorAll('.btn');
 let calDisplay = document.querySelector('.calDisplay');
 // calculator yozuvini chiqaradigan p ni chaqiryapmiz 
 
-buttons.forEach((btn)=> {
+buttons.forEach((btn) => {
     // buttons ni forEach orqali har bir elementni btn nomi ga beramiz
 
-    btn.addEventListener('click', ()=> {
-    // btn ga click event qo'shamiz bu yerda click bo'lganda function ishga tushadi
+    btn.addEventListener('click', () => {
+        if ((calDisplay.textContent === "error" || calDisplay.textContent === "undefined") && btn.textContent !== "ac") {
+            return; // agar calDisplay da error yoki undefined bo'lsa va btn.textContent ac ga teng bo'lmasa, hech narsa qilmaymiz
+        }
+
+        // btn ga click event qo'shamiz bu yerda click bo'lganda function ishga tushadi
 
         console.log(btn.textContent)
-    // btn larni  ni console ga chiqaramiz
+        // btn larni  ni console ga chiqaramiz
 
 
-        if ( btn.textContent === "ac"){
+        if (btn.textContent === "ac") {
             // agar ac tugmasi bosilsa
 
             calDisplay.textContent = '0';
@@ -23,59 +27,42 @@ buttons.forEach((btn)=> {
             return;
         }
 
+        if (btn.textContent === '=') {
+            if(calDisplay.textContent === '0' || calDisplay.textContent === '') {
+                calDisplay.textContent = 'error';
+            } else {
+                calDisplay.textContent = eval(calDisplay.textContent);
+            }
+            return;
+        }
 
-        if(calDisplay.textContent === '0'){
+        let lastChar = calDisplay.textContent.slice(-1); // calDisplay.textContent ning oxirgi belgisini olish
+        let operators = ['+', '-', '/', '*', '.'];
+
+        if (operators.includes(lastChar) && operators.includes(btn.textContent)) {
+            return; //agar screen dagi oxirgi belgisi operator bo'lsa va yangi bosilgan tugma ham operator bo'lsa, if ishlaydi
+        }
+
+        if (calDisplay.textContent === '0') {
             // agar p 0 bo'lsa
-            calDisplay.textContent  = btn.textContent;
+            calDisplay.textContent = btn.textContent;
             // o'sha p ni btn.textContent ga o'zgartiramiz
-        }else{ //yoki
+        } else { //yoki
             calDisplay.textContent = calDisplay.textContent + btn.textContent;
             // p qiymati = p qiymati + btn.textContent ga o'zgartiramiz
         }
 
         if (calDisplay.textContent.length > 10) {
             // agar p uzunligi 12 dan katta bo‘lsa
-            calDisplay.textContent = ' undefined';
+            calDisplay.textContent = 'undefined';
         } else if (calDisplay.textContent.length >= 9) {
             // agar p uzunligi 9 ga teng yoki 9 dan katta bo‘lsa
             calDisplay.style.fontSize = '3rem';
         } else {
-<<<<<<< Updated upstream
             // qolgan oddiy hollarda
-=======
-            // qolgan oddiy hollardaaz
->>>>>>> Stashed changes
             calDisplay.style.fontSize = '4rem';
         }
     })
 })
 
 
-// const buttons = document.querySelectorAll('.btn');
-// const calDisplay = document.querySelector('.caldisplay');
-
-// buttons.forEach((btn) => {
-//   btn.addEventListener('click', () => {
-//     const val = btn.textContent;
-
-//     if (val === 'ac') {
-//       calDisplay.textContent = '0';
-//       return;
-//     }
-
-//     if (val === '=') {
-//       try {
-//         calDisplay.textContent = eval(calDisplay.textContent);
-//       } catch {
-//         calDisplay.textContent = 'Error';
-//       }
-//       return;
-//     }
-
-//     if (calDisplay.textContent === '0') {
-//       calDisplay.textContent = val;
-//     } else {
-//       calDisplay.textContent += val;
-//     }
-//   });
-// });
