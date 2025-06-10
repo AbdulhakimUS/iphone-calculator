@@ -40,7 +40,11 @@ buttons.forEach((btn)=> {
             // agar p uzunligi 9 ga teng yoki 9 dan katta bo‘lsa
             calDisplay.style.fontSize = '3rem';
         } else {
+<<<<<<< Updated upstream
             // qolgan oddiy hollarda
+=======
+            // qolgan oddiy hollardaaz
+>>>>>>> Stashed changes
             calDisplay.style.fontSize = '4rem';
         }
     })
