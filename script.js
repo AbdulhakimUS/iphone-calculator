@@ -26,6 +26,16 @@ buttons.forEach((btn) => {
             return;
         }
 
+
+        if (btn.textContent === '%') {
+            try {
+                calDisplay.textContent = eval(calDisplay.textContent) / 100;
+            } catch {
+                calDisplay.textContent = 'error';
+            }
+            return;
+        }
+
         let lastItem = calDisplay.textContent.slice(-1);
         let operators = ['+', '-', '/', '*', '.', '%', '+/-'];
 
@@ -54,18 +64,18 @@ buttons.forEach((btn) => {
 
 
 document.addEventListener("keydown", (event) => {
-    let key = event.key; 
+    let key = event.key;
 
     if ((calDisplay.textContent === "error" || calDisplay.textContent === "undefined") && key !== "Escape") {
         return;
     }
 
-    if (key === "Escape") { 
+    if (key === "Escape") {
         calDisplay.textContent = "0";
         return;
     }
 
-    if (key === "Enter") { 
+    if (key === "Enter") {
         if (calDisplay.textContent === "0" || calDisplay.textContent === "") {
             calDisplay.textContent = "error";
         } else {
@@ -74,9 +84,18 @@ document.addEventListener("keydown", (event) => {
         return;
     }
 
+    if (key === '%') {
+        try {
+            calDisplay.textContent = eval(calDisplay.textContent) / 100;
+        } catch {
+            calDisplay.textContent = 'error';
+        }
+        return;
+    }
+
     let operators = ['+', '-', '/', '*', '.', '%',];
 
-    if (operators.includes(key) || /\d/.test(key)) { 
+    if (operators.includes(key) || /\d/.test(key)) {
         let lastItem = calDisplay.textContent.slice(-1);
 
         if (operators.includes(lastItem) && operators.includes(key)) {
