@@ -66,6 +66,9 @@ buttons.forEach((btn) => {
 document.addEventListener("keydown", (event) => {
     let key = event.key;
 
+    if (/^F\d{1,2}$/.test(key)) {
+        return;
+    }
     if ((calDisplay.textContent === "error" || calDisplay.textContent === "undefined") && key !== "Escape") {
         return;
     }
