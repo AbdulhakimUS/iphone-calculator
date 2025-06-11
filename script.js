@@ -1,34 +1,24 @@
 let buttons = document.querySelectorAll('.btn');
-// buttons ni document dan .btn classi orqali chaqirib olamiz
 
-let calDisplay = document.querySelector('.calDisplay');
-// calculator yozuvini chiqaradigan p ni chaqiryapmiz 
+let calDisplay = document.querySelector('.calc-display');
 
 buttons.forEach((btn) => {
-    // buttons ni forEach orqali har bir elementni btn nomi ga beramiz
 
     btn.addEventListener('click', () => {
         if ((calDisplay.textContent === "error" || calDisplay.textContent === "undefined") && btn.textContent !== "ac") {
-            return; // agar calDisplay da error yoki undefined bo'lsa va btn.textContent ac ga teng bo'lmasa, hech narsa qilmaymiz
+            return;
         }
-
-        // btn ga click event qo'shamiz bu yerda click bo'lganda function ishga tushadi
-
-        console.log(btn.textContent)
-        // btn larni  ni console ga chiqaramiz
 
 
         if (btn.textContent === "ac") {
-            // agar ac tugmasi bosilsa
 
             calDisplay.textContent = '0';
-            // p ni 0 ga o'zgartiramiz
 
             return;
         }
 
         if (btn.textContent === '=') {
-            if(calDisplay.textContent === '0' || calDisplay.textContent === '') {
+            if (calDisplay.textContent === '0' || calDisplay.textContent === '') {
                 calDisplay.textContent = 'error';
             } else {
                 calDisplay.textContent = eval(calDisplay.textContent);
@@ -36,33 +26,75 @@ buttons.forEach((btn) => {
             return;
         }
 
-        let lastChar = calDisplay.textContent.slice(-1); // calDisplay.textContent ning oxirgi belgisini olish
-        let operators = ['+', '-', '/', '*', '.'];
+        let lastItem = calDisplay.textContent.slice(-1);
+        let operators = ['+', '-', '/', '*', '.', '%', '+/-'];
 
-        if (operators.includes(lastChar) && operators.includes(btn.textContent)) {
-            return; //agar screen dagi oxirgi belgisi operator bo'lsa va yangi bosilgan tugma ham operator bo'lsa, if ishlaydi
+        if (operators.includes(lastItem) && operators.includes(btn.textContent)) {
+            return;
         }
 
         if (calDisplay.textContent === '0') {
-            // agar p 0 bo'lsa
             calDisplay.textContent = btn.textContent;
-            // o'sha p ni btn.textContent ga o'zgartiramiz
-        } else { //yoki
+        } else {
             calDisplay.textContent = calDisplay.textContent + btn.textContent;
-            // p qiymati = p qiymati + btn.textContent ga o'zgartiramiz
         }
 
-        if (calDisplay.textContent.length > 10) {
-            // agar p uzunligi 12 dan katta bo‘lsa
+        if (calDisplay.textContent.length > 9) {
             calDisplay.textContent = 'undefined';
-        } else if (calDisplay.textContent.length >= 9) {
-            // agar p uzunligi 9 ga teng yoki 9 dan katta bo‘lsa
+        } else if (calDisplay.textContent.length >= 8) {
             calDisplay.style.fontSize = '3rem';
         } else {
-            // qolgan oddiy hollarda
             calDisplay.style.fontSize = '4rem';
         }
+
+
     })
 })
 
 
+
+document.addEventListener("keydown", (event) => {
+    let key = event.key; 
+
+    if ((calDisplay.textContent === "error" || calDisplay.textContent === "undefined") && key !== "Escape") {
+        return;
+    }
+
+    if (key === "Escape") { 
+        calDisplay.textContent = "0";
+        return;
+    }
+
+    if (key === "Enter") { 
+        if (calDisplay.textContent === "0" || calDisplay.textContent === "") {
+            calDisplay.textContent = "error";
+        } else {
+            calDisplay.textContent = eval(calDisplay.textContent);
+        }
+        return;
+    }
+
+    let operators = ['+', '-', '/', '*', '.', '%',];
+
+    if (operators.includes(key) || /\d/.test(key)) { 
+        let lastItem = calDisplay.textContent.slice(-1);
+
+        if (operators.includes(lastItem) && operators.includes(key)) {
+            return;
+        }
+
+        if (calDisplay.textContent === "0") {
+            calDisplay.textContent = key;
+        } else {
+            calDisplay.textContent += key;
+        }
+    }
+
+    if (calDisplay.textContent.length > 9) {
+        calDisplay.textContent = "undefined";
+    } else if (calDisplay.textContent.length >= 8) {
+        calDisplay.style.fontSize = "3rem";
+    } else {
+        calDisplay.style.fontSize = "4rem";
+    }
+});
