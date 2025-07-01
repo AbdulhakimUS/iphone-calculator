@@ -5,10 +5,18 @@ let calDisplay = document.querySelector('.calc-display');
 buttons.forEach((btn) => {
 
     btn.addEventListener('click', () => {
+        // btn ga click event qo'shamiz bu yerda click bo'lganda function ishga tushadi
+
         if ((calDisplay.textContent === "error" || calDisplay.textContent === "undefined") && btn.textContent !== "ac") {
             return;
         }
 
+<<<<<<< Updated upstream
+=======
+        console.log(btn.textContent)
+        // btn larni  ni console ga chiqaramiz
+
+>>>>>>> Stashed changes
 
         if (btn.textContent === "ac") {
 
@@ -18,14 +26,26 @@ buttons.forEach((btn) => {
         }
 
         if (btn.textContent === '=') {
+<<<<<<< Updated upstream
             if (calDisplay.textContent === '0' || calDisplay.textContent === '') {
+=======
+            // agar = tugmasi bosilsa
+
+            if(calDisplay.textContent === '0' || calDisplay.textContent === '') {
+                // p qiymati 0 yoki bo'sh bo'lsa
+
+>>>>>>> Stashed changes
                 calDisplay.textContent = 'error';
+                // p qiymatini error ga o'zgartiramiz
+
             } else {
                 calDisplay.textContent = eval(calDisplay.textContent);
+                // yoki p qiymatini eval orqali hisoblab chiqaramiz
             }
             return;
         }
 
+<<<<<<< Updated upstream
 
         if (btn.textContent === '%') {
             try {
@@ -52,13 +72,37 @@ buttons.forEach((btn) => {
         if (calDisplay.textContent.length > 9) {
             calDisplay.textContent = 'undefined';
         } else if (calDisplay.textContent.length >= 8) {
+=======
+        if (calDisplay.textContent === '0') {
+            // agar p 0 bo'lsa
+
+            calDisplay.textContent = btn.textContent;
+            // o'sha p ni btn.textContent ga o'zgartiramiz
+
+        } else { //yoki
+            calDisplay.textContent = calDisplay.textContent + btn.textContent;
+            // p qiymati = p qiymatiga + btn.textContent ga o'zgartiramiz
+        }
+
+        if (calDisplay.textContent.length > 10) {
+            // agar p uzunligi 12 dan katta bo‘lsa
+
+            calDisplay.textContent = 'undefined';
+            //kalkulatorga undefined yozuvini chiqaramiz
+
+        } else if (calDisplay.textContent.length >= 9) {
+            // agar p uzunligi 9 ga teng yoki 9 dan katta bo‘lsa
+
+>>>>>>> Stashed changes
             calDisplay.style.fontSize = '3rem';
+            // p ni yozuvini 3rem ga kichraytiramiz
         } else {
             calDisplay.style.fontSize = '4rem';
         }
 
 
     })
+<<<<<<< Updated upstream
 })
 
 
@@ -120,3 +164,6 @@ document.addEventListener("keydown", (event) => {
         calDisplay.style.fontSize = "4rem";
     }
 });
+=======
+})
+>>>>>>> Stashed changes
